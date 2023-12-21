@@ -1,0 +1,17 @@
+{
+  "name": "hw12-sql--employee-tracker",
+  "version": "1.0.0",
+  "description": "build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^8.2.4",
+    "mysql2": "^3.6.5"
+  }
+}
