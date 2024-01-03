@@ -1,9 +1,10 @@
 INSERT INTO departments (name)
-VALUES ("Serive"),
+VALUES ("Service"),
         ("Sales"),
         ("Finance"),
         ("Engineering"),
-        ("Legal");
+        ("Legal"),
+        ("Management");
 
 INSERT INTO roles (title, salary)
 VALUES ("Developer", 100000),

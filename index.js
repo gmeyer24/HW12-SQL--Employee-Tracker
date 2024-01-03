@@ -1,7 +1,8 @@
 const inquirer = require("inquirer");
 const db = require("./config/mysql");
-const { addEmployee, viewEmployees } = require("./employeeUtils");
+const { addEmployee, viewEmployees, updateEmployeeRole, updateEmployeeManager } = require("./employeeUtils");
 const { viewDepartments, addDepartment } = require("./departmentUtils");
+const { addRole, viewRoles } = require("./roleUtils");
 
 // Display all options
 const menu = () => {
@@ -12,29 +13,43 @@ const menu = () => {
         text: "What would you like to do?",
         name: "action",
         choices: [
-          { name: "View all Departments", value: "list" },
-          { name: "View all Roles", value: "list" },
-          { name: "View all Employees", value: "list" },
-          { name: "Add a Department", value: "add" },
-          { name: "Add a Role", value: "add" },
-          { name: "Add an Employee", value: "add" },
-          { name: "Update an Employee Role", value: "update" },
+          { name: "View all Departments", value: "departmentList" },
+          { name: "View all Roles", value: "rolesList" },
+          { name: "View all Employees", value: "employeesList" },
+          { name: "Add a Department", value: "addDepartment" },
+          { name: "Add a Role", value: "addRole" },
+          { name: "Add an Employee", value: "addEmployee" },
+          { name: "Update an Employee Role", value: "updateEmployeeRole" },
+          { name: "Update an Employee Manager", value: "updateEmployeeManager" },
         ],
       },
     ])
     .then((answer) => {
       switch (answer.action) {
-        case "list":
+        case "employeesList":
           viewEmployees(menu);
           break;
-        case "add":
+        case "addEmployee":
           addEmployee(menu);
           break;
-        case "list":
+        case "updateEmployeeRole":
+          updateEmployeeRole(menu);
+          break;
+        case "updateEmployeeManager":
+          updateEmployeeManager(menu);
+          break;
+        case "departmentList":
           viewDepartments(menu);
           break;
-        case "add":
+        case "addDepartment":
           addDepartment(menu);
+          break;
+        case "rolesList":
+          viewRoles(menu);
+          break;
+        case "addRole":
+          addRole(menu);
+          break;
         default:
           menu();
       }

@@ -8,19 +8,19 @@ const addDepartment = (menu) => {
         {
           type: "input",
           text: "Enter name of Department",
-          name: "departmentName",
+          name: "name",
         },
       ])
   
       .then((department) => {
         console.log(department);
         db.query(
-          "INSERT INTO departments (name) VALUES ( ? );",
+          "INSERT INTO departments (name) VALUES ( ? );", [department.name],
           (err, result) => {
             if (err) {
               console.log(err);
             } else {
-              console.log("SUCCESS!");
+              console.log("SUCCESS! Department added to database.");
             }
             menu();
           }
