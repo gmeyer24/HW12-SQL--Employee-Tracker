@@ -16,9 +16,9 @@ const addDepartment = (menu) => {
         console.log(department);
         db.query(
           "INSERT INTO departments (name) VALUES ( ? );", [department.name],
-          (err, result) => {
-            if (err) {
-              console.log(err);
+          (newDepartmentErr, result) => {
+            if (newDepartmentErr) {
+              console.error("Error adding new department", newDepartmentErr);
             } else {
               console.log("SUCCESS! Department added to database.");
             }
@@ -30,9 +30,9 @@ const addDepartment = (menu) => {
   
 //   view all departments
   const viewDepartments = (menu) => {
-    db.query("SELECT * FROM departments", (err, departments) => {
-      if (err) {
-        console.log("There is a problem with the DB");
+    db.query("SELECT * FROM departments", (viewDepartmentErr, departments) => {
+      if (viewDepartmentErr) {
+        console.error("There is a problem with the DB", viewDepartmentErr);
       } else {
         console.table(departments);
       }

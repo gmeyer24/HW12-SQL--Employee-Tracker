@@ -70,9 +70,9 @@ const addEmployee = (menu) => {
             db.query(
               "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);",
               [employee.firstName, employee.lastName, roleId, managerId],
-              (err, result) => {
-                if (err) {
-                  console.log(err);
+              (employeeErr, result) => {
+                if (employeeErr) {
+                  console.error("Error adding employee", employeeErr);
                 } else {
                   console.log("SUCCESS! Employee added to database.");
                 }
@@ -90,9 +90,9 @@ const viewEmployees = (menu) => {
   const query =
     "SELECT employees.id AS employee_id, employees.first_name, employees.last_name, roles.title AS role_title, roles.salary AS role_salary, departments.name AS department_name, CONCAT(managers.first_name, ' ', managers.last_name) AS manager_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS managers ON employees.manager_id = managers.id;";
 
-  db.query(query, (err, employees) => {
-    if (err) {
-      console.log("There is a problem with the DB");
+  db.query(query, (viewErr, employees) => {
+    if (viewErr) {
+      console.error("There is a problem with the DB", viewErr);
     } else {
       console.table(employees);
     }
@@ -149,7 +149,7 @@ const updateEmployeeRole = (menu) => {
               [employeeRole.newRole, firstName, lastName],
               (updateErr, result) => {
                 if (updateErr) {
-                  console.log(updateErr);
+                  console.error("Error updating employee role.", updateErr);
                 } else {
                   console.log("SUCCESS! Employee Role updated.");
                 }
@@ -221,9 +221,9 @@ const updateEmployeeManager = (menu) => {
               db.query(
                 "SELECT id FROM employees WHERE first_name = ? AND last_name = ?",
                 [newManagerFirstName, newManagerLastName],
-                (err, managerResults) => {
-                  if (err) {
-                    console.error("Error fetching manager ID:", err);
+                (idErr, managerResults) => {
+                  if (idErr) {
+                    console.error("Error fetching manager ID:", idErr);
                     return;
                   }
 
@@ -252,7 +252,7 @@ const updateEmployeeManager = (menu) => {
                       }
                     );
                   } else {
-                    console.error("New manager not found.");
+                    console.error("Error: New manager not found.");
                     menu();
                   }
                 }

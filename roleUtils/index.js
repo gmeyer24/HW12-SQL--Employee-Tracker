@@ -4,9 +4,9 @@ const db = require("../config/mysql");
 // add new role
 const addRole = (menu) => {
   // Fetch department names and IDs from the database
-  db.query("SELECT id, name FROM departments", (err, results) => {
-    if (err) {
-      console.error("Error fetching departments:", err);
+  db.query("SELECT id, name FROM departments", (departmentErr, results) => {
+    if (departmentErr) {
+      console.error("Error fetching departments:", departmentErr);
       return;
     }
 
@@ -40,9 +40,9 @@ const addRole = (menu) => {
         db.query(
           "INSERT INTO roles (title, salary, department_id) VALUES (?, ?, ?);",
           [role.title, role.salary, role.department],
-          (err, result) => {
-            if (err) {
-              console.log(err);
+          (roleErr, result) => {
+            if (roleErr) {
+              console.error("Error adding new role", roleErr);
             } else {
               console.log("SUCCESS! Role has been added to the database.");
             }
@@ -58,9 +58,9 @@ const viewRoles = (menu) => {
   const query =
     "SELECT roles.id, roles.title, roles.salary, departments.name AS department_name FROM roles JOIN departments ON roles.department_id = departments.id;";
 
-  db.query(query, (err, roles) => {
-    if (err) {
-      console.log("There is a problem with the DB");
+  db.query(query, (viewRoleErr, roles) => {
+    if (viewRoleErr) {
+      console.error("There is a problem with the DB", viewRoleErr);
     } else {
       console.table(roles);
     }
