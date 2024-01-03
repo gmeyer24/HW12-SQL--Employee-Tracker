@@ -264,9 +264,60 @@ const updateEmployeeManager = (menu) => {
   );
 };
 
+// view employees by manager
+const viewEmployeesByManager = (menu) => {
+  // Get available managers from the database
+  db.query(
+    "SELECT id, CONCAT(first_name, ' ', last_name) AS manager_name FROM employees",
+    (managErr, managResults) => {
+      if (managErr) {
+        console.error("Error fetching managers:", managErr);
+        return;
+      }
+
+      const managerChoices = managResults.map((row) => row.manager_name);
+
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            text: "Select Manager to view their employees",
+            name: "selectedManager",
+            choices: managerChoices,
+          },
+        ])
+
+        .then((selectedManager) => {
+          // Get first and last name from the selected manager
+          const [managerFirstName, managerLastName] =
+            selectedManager.selectedManager.split(" ");
+
+          // Gets employees under the selected manager
+
+          const query =
+            "SELECT employees.id AS employee_id, employees.first_name, employees.last_name, roles.title AS role_title, roles.salary AS role_salary, departments.name AS department_name, CONCAT(managers.first_name, ' ', managers.last_name) AS manager_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS managers ON employees.manager_id = managers.id WHERE managers.first_name = ? AND managers.last_name = ?;";
+
+          db.query(
+            query,
+            [managerFirstName, managerLastName],
+            (viewEmployeesErr, employees) => {
+              if (viewEmployeesErr) {
+                console.error("Error fetching employees:", viewEmployeesErr);
+              } else {
+                console.table(employees);
+              }
+              menu();
+            }
+          );
+        });
+    }
+  );
+};
+
 module.exports = {
   addEmployee,
   viewEmployees,
   updateEmployeeRole,
   updateEmployeeManager,
+  viewEmployeesByManager,
 };
