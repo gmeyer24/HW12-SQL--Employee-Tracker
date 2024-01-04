@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const db = require("./config/mysql");
-const { addEmployee, viewEmployees, updateEmployeeRole, updateEmployeeManager, viewEmployeesByManager } = require("./employeeUtils");
+const { addEmployee, viewEmployees, updateEmployeeRole, updateEmployeeManager, viewEmployeesByManager, viewEmployeesByDepartment } = require("./employeeUtils");
 const { viewDepartments, addDepartment } = require("./departmentUtils");
 const { addRole, viewRoles } = require("./roleUtils");
 
@@ -17,6 +17,7 @@ const menu = () => {
           { name: "View all Roles", value: "rolesList" },
           { name: "View all Employees", value: "employeesList" },
           { name: "View Employees by Manager", value: "employeesByManager" },
+          { name: "View Employees by Department", value: "employeesByDepartment" },
           { name: "Add a Department", value: "addDepartment" },
           { name: "Add a Role", value: "addRole" },
           { name: "Add an Employee", value: "addEmployee" },
@@ -32,6 +33,9 @@ const menu = () => {
           break;
         case "employeesByManager":
           viewEmployeesByManager(menu);
+          break;
+        case "employeesByDepartment":
+          viewEmployeesByDepartment(menu);
           break;
         case "addEmployee":
           addEmployee(menu);

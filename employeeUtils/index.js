@@ -293,7 +293,6 @@ const viewEmployeesByManager = (menu) => {
             selectedManager.selectedManager.split(" ");
 
           // Gets employees under the selected manager
-
           const query =
             "SELECT employees.id AS employee_id, employees.first_name, employees.last_name, roles.title AS role_title, roles.salary AS role_salary, departments.name AS department_name, CONCAT(managers.first_name, ' ', managers.last_name) AS manager_name FROM employees LEFT JOIN roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS managers ON employees.manager_id = managers.id WHERE managers.first_name = ? AND managers.last_name = ?;";
 
@@ -314,10 +313,56 @@ const viewEmployeesByManager = (menu) => {
   );
 };
 
+// view employees by department
+const viewEmployeesByDepartment = (menu) => {
+  // get available departments
+  db.query(
+    "SELECT id, name AS department_name FROM departments",
+    (deptErr, deptResults) => {
+      if (deptErr) {
+        console.error("Error fetching departments:", deptErr);
+        return;
+      }
+      const departmentChoices = deptResults.map((row) => row.department_name);
+
+      inquirer
+        .prompt([
+          {
+            type: "list",
+            text: "Select Department to view its employees",
+            name: "selectedDepartment",
+            choices: departmentChoices,
+          },
+        ])
+
+        .then((selectedDepartment) => {
+          // Get the selected department name
+          const departmentName = selectedDepartment.selectedDepartment;
+
+          // Retrieve employees belonging to the selected department
+          const query = `
+              SELECT 
+                employees.id AS employee_id, employees.first_name, employees.last_name, roles.title AS role_title, roles.salary AS role_salary, departments.name AS department_name, CONCAT(managers.first_name, ' ', managers.last_name) AS manager_name FROM employees LEFT JOIN 
+                roles ON employees.role_id = roles.id LEFT JOIN departments ON roles.department_id = departments.id LEFT JOIN employees AS managers ON employees.manager_id = managers.id WHERE departments.name = ?;`;
+
+          db.query(query, [departmentName], (viewEmployeesErr, employees) => {
+            if (viewEmployeesErr) {
+              console.error("Error fetching employees:", viewEmployeesErr);
+            } else {
+              console.table(employees);
+            }
+            menu();
+          });
+        });
+    }
+  );
+};
+
 module.exports = {
   addEmployee,
   viewEmployees,
   updateEmployeeRole,
   updateEmployeeManager,
   viewEmployeesByManager,
+  viewEmployeesByDepartment
 };
