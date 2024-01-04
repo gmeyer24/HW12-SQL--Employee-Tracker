@@ -199,7 +199,7 @@ Gavin Meyer | Email: gpmeyer24@gmail.com | GitHub: gmeyer24
 
 Project Link: [GitHub Project Link](https://github.com/gmeyer24/HW12-SQL-Employee-Tracker)
 
-Walkthrough Video Link: []()
+Walkthrough Video Link: [Walkthrough Video Link](https://drive.google.com/file/d/1O7-PswOLly8IBe2gh5Jmx_ds1ha6FE7w/view)
 
 <p align="right">(<a href="#readme-top">Back To Top</a>)</p>
 
