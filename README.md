@@ -84,7 +84,8 @@
 <!-- Enter Description Below -->
 The goal of this project was to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL. This allows users to easily view and interact with company information stored in the database.
 
-[![HW12-SQL-Employee-Tracker Deployed Link][product-screenshot]](https://gmeyer24.github.io/HW12-SQL-Employee-Tracker)
+[![Walkthrough Video Preview](![Alt text](<assets/images/HW Image.png>))](https://drive.google.com/file/d/1O7-PswOLly8IBe2gh5Jmx_ds1ha6FE7w/view)
+
 
 <!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `gmeyer24`, `HW12-SQL-Employee-Tracker`, `gavinpmeyer`, `gmail`, `gpmeyer24`, `HW12-SQL-Employee-Tracker`, `project_description` -->
 
@@ -142,6 +143,8 @@ This is an example of how to list things you need to use the software and how to
 4. Reference video below for usage examples
 
 ### Walkthrough Video
+
+* [Walkthrough Video Link](https://drive.google.com/file/d/1O7-PswOLly8IBe2gh5Jmx_ds1ha6FE7w/view)
 
 
 <p align="right">(<a href="#readme-top">Back To Top</a>)</p>
