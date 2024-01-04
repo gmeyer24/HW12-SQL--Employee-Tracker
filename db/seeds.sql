@@ -1,3 +1,4 @@
+-- Active: 1703447745794@@127.0.0.1@3306@world
 INSERT INTO departments (name)
 VALUES ("Service"),
         ("Sales"),
